@@ -54,13 +54,24 @@ class App extends React.Component {
 
 
 
+
     () => {
       let index = Math.floor(Math.random() * data.length);
       this.setState({
         quotes: data[index].quote,
         author: data[index].author });
 
-    });this.state = { quotes: data[0].quote, author: data[0].author };this.newQuote = this.newQuote.bind(this);}
+    });_defineProperty(this, "tweet",
+
+    () => {
+      let twitterParameters = [];
+      twitterParameters.push('text=' + encodeURI("'" + this.state.quotes + "'-" + this.state.author));
+      let url =
+      'https://twitter.com/intent/tweet?' +
+      twitterParameters.join('&');
+      window.open(url);
+    });this.state = { quotes: data[0].quote, author: data[0].author };this.newQuote = this.newQuote.bind(this);this.tweet = this.tweet.bind(this);}
+
   render() {
     return (
       React.createElement("div", { className: "jumbotron", id: "quote-box" },
@@ -73,7 +84,7 @@ class App extends React.Component {
       React.createElement("button", { className: "btn btn-default", id: "new-quote", onClick: this.newQuote }, "New Quote!"),
 
 
-      React.createElement("a", { href: "https://twitter.com/share", class: "btn btn-default ", id: "tweet-quote" },
+      React.createElement("button", { class: "btn btn-default ", id: "tweet-quote", onClick: this.tweet },
       React.createElement("i", { class: "fab fa-twitter" }), " Tweet")));
 
 
